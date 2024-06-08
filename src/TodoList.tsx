@@ -1,7 +1,22 @@
 import React from "react";
 import { TbTrash } from "react-icons/tb";
 
-const TodoList = ({ tasks, toggleComplete, deleteTask }) => {
+interface Task {
+  text: string;
+  completed: boolean;
+}
+
+interface TodoListProps {
+  tasks: Task[];
+  toggleComplete: (index: number) => void;
+  deleteTask: (index: number) => void;
+}
+
+const TodoList: React.FC<TodoListProps> = ({
+  tasks,
+  toggleComplete,
+  deleteTask,
+}) => {
   return (
     <ul className="list-group w-75 m-auto pt-5">
       {tasks.map((task, index) => (

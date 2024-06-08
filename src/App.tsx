@@ -1,13 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, FormEvent } from "react";
 import TodoInput from "./TodoInput";
 import TodoList from "./TodoList";
 
-const App = () => {
-  const [tasks, setTasks] = useState([]);
-  const [task, setTask] = useState("");
+// Define the Task type
+interface Task {
+  text: string;
+  completed: boolean;
+}
+
+const App: React.FC = () => {
+  const [tasks, setTasks] = useState<Task[]>([]);
+  const [task, setTask] = useState<string>("");
 
   useEffect(() => {
-    const savedTasks = JSON.parse(localStorage.getItem("tasks") || "[]");
+    const savedTasks = JSON.parse(
+      localStorage.getItem("tasks") || "[]"
+    ) as Task[];
     if (savedTasks) {
       setTasks(savedTasks);
     }
@@ -17,7 +25,7 @@ const App = () => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
 
-  const addTask = (e) => {
+  const addTask = (e: FormEvent) => {
     e.preventDefault();
     if (task.trim()) {
       setTasks([...tasks, { text: task, completed: false }]);
@@ -25,12 +33,12 @@ const App = () => {
     }
   };
 
-  const deleteTask = (index) => {
+  const deleteTask = (index: number) => {
     const newTasks = tasks.filter((_, i) => i !== index);
     setTasks(newTasks);
   };
 
-  const toggleComplete = (index) => {
+  const toggleComplete = (index: number) => {
     const newTasks = tasks.map((task, i) =>
       i === index ? { ...task, completed: !task.completed } : task
     );

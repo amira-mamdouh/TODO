@@ -34,12 +34,16 @@ body {
   border-color: var(--main-color);
 }
 
-.trash {
-  left: 93%;
+.btn-edit,
+.btn-trash {
   cursor: pointer;
 }
 
-.trash:hover {
+.btn-edit:hover {
+  color: green;
+}
+
+.btn-trash:hover {
   color: red;
   animation: shaking 0.25s infinite;
 }
